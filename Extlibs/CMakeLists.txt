@@ -10,14 +10,17 @@ FetchContent_Declare(
     GIT_TAG main
 )
 FetchContent_Declare(
+    SDL_image
+    GIT_REPOSITORY git@github.com:libsdl-org/SDL_image.git
+    GIT_TAG main
+)
+FetchContent_Declare(
     ImGUI
     GIT_REPOSITORY git@github.com:ocornut/imgui.git
     GIT_TAG docking
 )
 
-
-# FetchContent_MakeAvailable(SDL SDL_image SDL_ttf SDL_mixer ImGUI)
-FetchContent_MakeAvailable(ImGUI SDL)
+FetchContent_MakeAvailable(ImGUI SDL SDL_image)
 
 add_library(IMGUI STATIC)
 add_library(${PROJECT_NAME} INTERFACE)
@@ -35,6 +38,6 @@ target_include_directories(IMGUI PUBLIC ${imgui_SOURCE_DIR})
 target_include_directories(IMGUI PUBLIC ${SDL3_SOURCE_DIR}/include)
 target_include_directories(IMGUI PUBLIC ${imgui_SOURCE_DIR}/backends)
 
-list(APPEND EXTLIBS SDL3::SDL3 IMGUI)
+list(APPEND EXTLIBS SDL3::SDL3 SDL3_image::SDL3_image IMGUI)
 
 target_link_libraries(${PROJECT_NAME} INTERFACE ${EXTLIBS})
